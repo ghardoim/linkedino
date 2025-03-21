@@ -8,7 +8,7 @@ from selenium.webdriver import Safari
 from os import getenv
 
 class URLs:
-    JOBS = (HOME := "https://www.linkedin.com/feed") + "my-items/saved-jobs/?cardType=APPLIED"
+    JOBS = (HOME := "https://www.linkedin.com/") + "my-items/saved-jobs/?cardType=APPLIED"
     INVITATIONS = HOME + "mynetwork/invitation-manager/sent/"
     SEARCH = HOME + "search/results/all"
 
@@ -28,7 +28,7 @@ class Linkedin0(Safari):
         self.clickby_text("Sign in", "button")
 
         self.wait_by(By.ID, "two-step-challenge").send_keys(input("Enter the code: "))
-        self.wait_by(By.ID, "two-step-submit-button").click()
+        self.execute_script("arguments[0].click();", self.wait_by(By.ID, "two-step-submit-button"))
 
     def clickby_text(self, text:str, html_tag:str="button") -> None:
         self.wait_by(By.XPATH, f"//{html_tag}[text()[contains(.,'{text}')]]").click()
