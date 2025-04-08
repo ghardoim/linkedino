@@ -16,7 +16,7 @@ class Linkedin0(Safari):
     def __init__(self, url:str) -> None:
         super().__init__()
 
-        self.wait = WebDriverWait(self, 60)
+        self.wait = WebDriverWait(self, 10)
         self.action = ActionChains(self)
         self.maximize_window()
 
@@ -28,10 +28,12 @@ class Linkedin0(Safari):
         self.clickby_text("Sign in", "button")
 
         self.wait_by(By.ID, "two-step-challenge").send_keys(input("Enter the code: "))
-        self.execute_script("arguments[0].click();", self.wait_by(By.ID, "two-step-submit-button"))
+        self.js_click(self.wait_by(By.ID, "two-step-submit-button"))
 
     def clickby_text(self, text:str, html_tag:str="button") -> None:
         self.wait_by(By.XPATH, f"//{html_tag}[text()[contains(.,'{text}')]]").click()
+
+    def js_click(self, element:WebElement) -> None: self.execute_script("arguments[0].click()", element)
 
     def wait_by(self, *locator:tuple) -> WebElement:
         return self.wait.until(EC.element_to_be_clickable(locator))
@@ -47,9 +49,6 @@ class Linkedin0(Safari):
 
     def clear(self, input) -> None:
         self.action.double_click(input).double_click().send_keys(Keys.DELETE).perform()
-
-    def wait_search(self) -> None:
-        self.wait.until(EC.presence_of_element_located((By.ID, "search-reusables__filters-bar")))
 
     def logout(self) -> None:
         self.close()
