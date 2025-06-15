@@ -10,6 +10,7 @@ from os import getenv
 class URLs:
     JOBS = (HOME := "https://www.linkedin.com/") + "my-items/saved-jobs/?cardType=APPLIED"
     INVITATIONS = HOME + "mynetwork/invitation-manager/sent/"
+    MESSAGES = HOME + "messaging/?filter=job"
     SEARCH = HOME + "search/results/all"
 
 class Linkedin0(Safari):

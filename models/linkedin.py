@@ -15,3 +15,11 @@ class Job(BaseModel):
 
 class Jobs(BaseModel):
     applied: List[Job]
+
+class Opportunity(BaseModel):
+    recruiter: str = Field(..., description="The recruiter's name")
+    position: str = Field(..., description="The job's title.")
+    company: str = Field(..., description="The company's name")
+    category: str = Field(..., description="The IT area where the job belongs (BackEnd, Data, SRE, DevOps, RPA...)")
+    seniority: str = Field(..., description="Intern, Junior, Mid, Senior, Lead or Manager")
+    model: str = Field(..., description="Remote, Onsite or Hybrid")
